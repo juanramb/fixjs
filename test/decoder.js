@@ -60,6 +60,11 @@ test('decode wiki example', function(done) {
 
     decoder.write(msg.replace(/\|/g, sep));
 });
+
+/** Test for issue fixed in commit:
+ *  https://github.com/defunctzombie/fixjs/commit/5010c720b1f3a8d71c5cda80945aa7c0bf1ba882
+ *  That prevented multiple callbacks when buffer fills up
+ */
 test('Filled up buffer', function(done) {
     var decoder = FrameDecoder();
     String.prototype.repeat = function (num) {
