@@ -67,9 +67,10 @@ test('decode wiki example', function(done) {
  */
 test('Filled up buffer', function(done) {
     var decoder = FrameDecoder();
-    String.prototype.repeat = function (num) {
-      return new Array(num + 1).join(this);
-    }
+    var repeat = function (string, num) {
+      return new Array(num + 1).join(string);
+    };
+    var num = 1000;
     done = after(30, done);
     decoder.on('data', function(msg) {
         done();
@@ -78,7 +79,7 @@ test('Filled up buffer', function(done) {
     // example messages from wikipedia page
     // http://en.wikipedia.org/wiki/Financial_Information_eXchange
     var msg = '8=FIX.4.2|9=178|35=8|49=PHLX|56=PERS|52=20071123-05:30:00.000|11=ATOMNOCCC9990900|20=3|150=E|39=E|55=MSFT|167=CS|54=1|38=15|40=2|44=15|58=PHLX EQUITY TESTING|59=0|47=C|32=0|31=0|151=15|14=0|6=0|10=128|';
-    var messages = msg.repeat(1000);
+    var messages = repeat(msg,num);
     decoder.write(messages.replace(/\|/g, sep));
 
 });
